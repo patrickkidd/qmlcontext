@@ -12,8 +12,8 @@ from qmlcontext import Application, QuickWidget
 _log = logging.getLogger(__name__)
 
 
-# def pytest_generate_tests(metafunc):
-#     os.environ["QT_QPA_PLATFORM"] = "offscreen"
+def pytest_generate_tests(metafunc):
+    os.environ["QT_QPA_PLATFORM"] = "offscreen"
 
 
 _qtbot = None
