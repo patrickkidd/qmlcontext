@@ -30,6 +30,10 @@ jobs:
         mkdir .venv
         pipenv install
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Start Xvfb
+      run: |
+        Xvfb :99 -screen 0 1600x1200x24 &
+        export DISPLAY=:99        
     - name: Test with pytest
       run: |
         pipenv run pytest
