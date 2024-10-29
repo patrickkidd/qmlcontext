@@ -1,0 +1,1 @@
+from qmlcontext.views.documentproperties import DocumentProperties
