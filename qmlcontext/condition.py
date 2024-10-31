@@ -13,3 +13,6 @@ class Condition:
     @property
     def mock(self):
         return self._mock
+
+    def called(self) -> bool:
+        return self.mock.called

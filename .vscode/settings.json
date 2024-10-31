@@ -1,6 +1,9 @@
 {
     "python.testing.pytestArgs": [
-        "."
+        "-svv",
+        "--disable-warnings",
+        "-rootdir",
+        "tests"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true

@@ -11,6 +11,8 @@ from qmlcontext import Application, QuickWidget
 
 _log = logging.getLogger(__name__)
 
+logging.basicConfig(level=logging.DEBUG, stream=sys.stdout)
+
 
 def pytest_generate_tests(metafunc):
     os.environ["QT_QPA_PLATFORM"] = "offscreen"
@@ -38,7 +40,7 @@ def our_qtbot(qtbot):
     global _qtbot
     _qtbot = qtbot
 
-    with mock.patch.object(QuickWidget, "qtbot"):
+    with mock.patch.object(QuickWidget, "qtbot", _qtbot):
         yield qtbot
 
     _qtbot = None

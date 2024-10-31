@@ -1,6 +1,6 @@
 import logging
 
-from qmlcontext.pyqt import Qt, QApplication, QQmlApplicationEngine
+from qmlcontext.pyqt import Qt, QApplication
 
 
 _log = logging.getLogger(__name__)
@@ -11,8 +11,3 @@ class Application(QApplication):
         QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
         super().__init__(*args, **kwargs)
         self.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
-
-        _log.info("qmlcontext.Application()")
-
-        # self.qmlEngine = QQmlApplicationEngine()
-        # self.qmlEngine.addImportPath("qrc:/qml")

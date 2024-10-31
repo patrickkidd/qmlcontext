@@ -1,4 +1,8 @@
+import logging
+
 from qmlcontext.pyqt import pyqtSignal, pyqtProperty, QObject
+
+_log = logging.getLogger(__name__)
 
 
 class Document(QObject):
@@ -30,6 +34,7 @@ class Document(QObject):
         return self._categories
 
     def setCategoryIndex(self, index: int):
+        self._categoryIndex = index
         self.categoryIndexChanged.emit(index)
 
     @pyqtProperty(int, fset=setCategoryIndex, notify=categoryIndexChanged)

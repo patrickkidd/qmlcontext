@@ -119,12 +119,27 @@ class QuickWidget(QQuickWidget):
         _log.debug(f'QuickWidget.resetFocus("{itemName}")')
         item.setProperty("focus", False)
         if item.hasActiveFocus():
-            self.qml.rootObject().forceActiveFocus()  # TextField?
+            self.rootObject().forceActiveFocus()  # TextField?
             if item.hasActiveFocus():
                 raise RuntimeError(f"Could not re-set active focus on {itemName}.")
 
-    def keyClicks(self, itemName, s: str, resetFocus=True, returnToFinish=True):
+    def keyClick(self, itemName, key, resetFocus=True):
         self.focusItem(itemName)
+        _log.debug(f'QmlWidgetHelper.keyClick("{itemName}", {key})')
+        self.qtbot.keyClick(self, key)
+        if resetFocus:
+            self.resetFocus(itemName)
+
+    def keyClicks(self, itemName, s: str, selectAllFirst=True, resetFocus=True, returnToFinish=True):
+        self.focusItem(itemName)
+        _log.debug(f"QuickWidget.keyClicks('{itemName}', '{s}')")
+        item = self.item(itemName)
+        if not item.property('enabled'):
+            raise RuntimeError(f"Cannot send key clicks to item that is not enabled: {itemName}")
+        if not item.property('visible'):
+            raise RuntimeError(f"Cannot send key clicks to item that is not visible: {itemName}")
+        if selectAllFirst:
+            item.selectAll()
         self.qtbot.keyClicks(self, s)
         if returnToFinish:
             self.qtbot.keyClick(self, Qt.Key_Return)  # only for TextInput?
